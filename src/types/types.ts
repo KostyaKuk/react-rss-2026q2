@@ -11,3 +11,9 @@ export interface AppState {
   isLoading: boolean;
   error: string | null;
 }
+
+export interface PaginationState {
+  currentPage: number;
+  hasNextPage: boolean;
+  isLoadingMore: boolean;
+}

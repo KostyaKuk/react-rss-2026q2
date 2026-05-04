@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '../Card/ Card';
 import type { Item } from '../../types/types';
+import './CardList.css';
 
 interface CardListProps {
   items: Item[];

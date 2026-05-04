@@ -2,6 +2,8 @@ import React from 'react';
 import Header from './components/Header/Header';
 import Search from './components/Search/Search';
 import Main from './components/Main/Main';
+import ErrorTestButton from './components/ErrorButton/ErrorButton';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 interface AppState {
   searchQuery: string;
@@ -62,6 +64,7 @@ class App extends React.Component<object, AppState> {
       return null; 
     }
     return (
+      <ErrorBoundary>
       <div className="app">
         <Header />
         
@@ -72,7 +75,9 @@ class App extends React.Component<object, AppState> {
         />
 
         <Main key={searchQuery} searchQuery={searchQuery} />
+           <ErrorTestButton />
       </div>
+      </ErrorBoundary>
     );
   }
 }

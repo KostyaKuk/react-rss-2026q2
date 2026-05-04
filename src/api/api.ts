@@ -15,24 +15,23 @@ export interface ShikimoriAnime {
 }
 
 export class ShikimoriService {
-  static async searchAnime(query: string = '', limit: number = 12): Promise<ShikimoriAnime[]> {
-    try {
-      let url = `${BASE_URL}/animes?limit=${limit}&order=popularity`;
+  static async searchAnime(
+    query: string = '', 
+    limit: number = 12, 
+    page: number = 1
+  ): Promise<ShikimoriAnime[]> {
+    let url = `${BASE_URL}/animes?limit=${limit}&page=${page}&order=popularity`;
 
-      if (query.trim()) {
-        url += `&search=${encodeURIComponent(query)}`;
-      }
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('Failed to fetch from Shikimori:', error);
-      throw error;
+    if (query.trim()) {
+      url += `&search=${encodeURIComponent(query)}`;
     }
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status}`);
+    }
+
+    return await response.json();
   }
 }

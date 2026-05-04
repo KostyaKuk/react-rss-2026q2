@@ -37,7 +37,7 @@ class Main extends React.Component<MainProps, MainState> {
   private adaptToItem = (anime: ShikimoriAnime): Item => {
      const SHIKIMORI_IMAGE_BASE_URL = 'https://shikimori.one';
      let imageUrl = '';
-     
+
     if (anime.image?.original) {
       imageUrl = `${SHIKIMORI_IMAGE_BASE_URL}${anime.image.original}`;
     } else if (anime.image?.preview) {
@@ -85,7 +85,16 @@ class Main extends React.Component<MainProps, MainState> {
               : "Popular Anime"}
           </h2>
 
-          {loading && <div className="loading">Loading...</div>}
+          {loading && (
+            <div className="loading">
+              <div className="spinner"></div>
+              <p>
+                {this.props.searchQuery 
+                  ? `Searching for "${this.props.searchQuery }"...` 
+                  : "Loading popular anime..."}
+              </p>
+            </div>
+          )}
           
           {error && <div className="error">{error}</div>}
 

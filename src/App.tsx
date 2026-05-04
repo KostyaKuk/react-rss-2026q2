@@ -5,6 +5,7 @@ import Main from './components/Main/Main';
 
 interface AppState {
   searchQuery: string;
+  isStorageLoaded: boolean;
 }
 class App extends React.Component<object, AppState> {
   
@@ -12,6 +13,7 @@ class App extends React.Component<object, AppState> {
     super(props);
     this.state = {
       searchQuery: '',
+      isStorageLoaded: false,
     };
   }
 
@@ -19,14 +21,17 @@ class App extends React.Component<object, AppState> {
     this.loadSearchQueryFromStorage();
   }
 
-  loadSearchQueryFromStorage = (): void => {
+   loadSearchQueryFromStorage = (): void => {
     try {
       const savedQuery = localStorage.getItem('lastSearchQuery');
       if (savedQuery !== null) {
-        this.setState({ searchQuery: savedQuery });
+        this.setState({ searchQuery: savedQuery, isStorageLoaded: true });
+      } else {
+        this.setState({ isStorageLoaded: true });
       }
     } catch (error) {
       console.warn('Failed to load search query from localStorage:', error);
+      this.setState({ isStorageLoaded: true });
     }
   };
 
@@ -51,17 +56,22 @@ class App extends React.Component<object, AppState> {
   };
 
   render() {
+    const { searchQuery, isStorageLoaded } = this.state;
+    
+    if (!isStorageLoaded) {
+      return null; 
+    }
     return (
       <div className="app">
         <Header />
         
         <Search
-          value={this.state.searchQuery}
+          value={searchQuery}
           onChange={this.handleSearchChange}
           onSubmit={this.handleSearchSubmit}
         />
 
-        <Main searchQuery={this.state.searchQuery} />
+        <Main key={searchQuery} searchQuery={searchQuery} />
       </div>
     );
   }

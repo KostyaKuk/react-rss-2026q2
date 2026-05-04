@@ -1,0 +1,27 @@
+.main {
+  padding: 40px 20px;
+  min-height: 60vh;
+  background-color: #f8fafc;
+}
+
+.main-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.results-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e2937;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.results-placeholder {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  color: #64748b;
+}

@@ -7,19 +7,47 @@ interface AppState {
   searchQuery: string;
 }
 class App extends React.Component<object, AppState> {
-  constructor(props: Record<string, never>) {
+  
+  constructor(props: object) {
     super(props);
     this.state = {
       searchQuery: '',
     };
   }
 
+  componentDidMount() {
+    this.loadSearchQueryFromStorage();
+  }
+
+  loadSearchQueryFromStorage = (): void => {
+    try {
+      const savedQuery = localStorage.getItem('lastSearchQuery');
+      if (savedQuery !== null) {
+        this.setState({ searchQuery: savedQuery });
+      }
+    } catch (error) {
+      console.warn('Failed to load search query from localStorage:', error);
+    }
+  };
+
+  saveSearchQueryToStorage = (query: string): void => {
+    try {
+      localStorage.setItem('lastSearchQuery', query);
+    } catch (error) {
+      console.warn('Failed to save search query to localStorage:', error);
+    }
+  };
+
   handleSearchChange = (value: string): void => {
     this.setState({ searchQuery: value });
   };
 
   handleSearchSubmit = (): void => {
-    console.log('Search submitted:', this.state.searchQuery);
+    const { searchQuery } = this.state;
+    
+    this.saveSearchQueryToStorage(searchQuery);
+    
+    console.log('Search submitted:', searchQuery);
   };
 
   render() {

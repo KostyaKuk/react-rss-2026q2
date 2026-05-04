@@ -8,8 +8,7 @@ interface SearchProps {
 }
 
 class Search extends React.Component<SearchProps> {
-
-  handleSubmit = (e: React.SubmitEvent<HTMLFormElement>): void => {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     this.props.onSubmit();
   };
